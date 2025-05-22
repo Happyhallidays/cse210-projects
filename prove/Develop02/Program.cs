@@ -1,60 +1,48 @@
 using System;
-using System.ComponentModel.Design;
 
 class Program
 {
-    private static string ObtainFileName(string prompt)
-    {
-        Console.WriteLine(prompt);
-        string fileName = Console.ReadLine();
-        return fileName;
-    }
-
     static void Main(string[] args)
     {
-        Journal newJournal = new Journal();
-        JournalQuestion journalQuestions = new JournalQuestion();
+        Journal journal = new Journal();
+        bool running = true;
 
-        Menu menu = new Menu("Journal Program", "Write, Display, Save, and load your journal");
-        menu.DisplayTitle();
-        string fileName = "";
-        int response = 0;
-        while (response != 5)
+        while (running)
         {
-            response = menu.ProcessMenu();
+            Console.WriteLine("\nJournal Menu:");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display the journal");
+            Console.WriteLine("3. Save journal to file");
+            Console.WriteLine("4. Load journal from file");
+            Console.WriteLine("5. Quit");
+            Console.Write("Choose an option (1-5): ");
 
-            switch (response)
+            string choice = Console.ReadLine();
+
+            switch (choice)
             {
-                case 1:
-                    JournalEntry journalEntry = new JournalEntry();
-                    string question = journalEntry.NextQuestion();
-                    journalQuestions.CreateEntry(question);
-
-                    journalEntry.Display();
-
-                    newJournal.AddEntry(journalEntry);
+                case "1":
+                    journal.WriteEntry();
                     break;
-
-                case 2:
-                    newJournal.Display();
+                case "2":
+                    journal.DisplayEntries();
                     break;
-                
-                case 3:
-                    fileName = ObtainFileName("File Name from which to read Journal: ");
-                    newJournal.ReadFromFile(fileName);
+                case "3":
+                    Console.Write("Enter filename to save to: ");
+                    string saveFile = Console.ReadLine();
+                    journal.SaveToFile(saveFile);
                     break;
-                
-                case 4:
-                    fileName = ObtainFileName("File Name to which to write Journal: ");
-                    newJournal.WriteToFile(fileName);
+                case "4":
+                    Console.Write("Enter filename to load from: ");
+                    string loadFile = Console.ReadLine();
+                    journal.LoadFromFile(loadFile);
                     break;
-                
-                case 5:
+                case "5":
+                    running = false;
                     break;
                 default:
-                    Console.WriteLine("Error, please input valid value.");
+                    Console.WriteLine("Invalid option. Try again.");
                     break;
-                
             }
         }
     }
