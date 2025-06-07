@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string text = "Trust in the Lord with all thine heart; and lean not unto thine own understanding.";
+        //string text = "Trust in the Lord with all thine heart; and lean not unto thine own understanding.";
         Scripture scripture = ScriptureBank.GetRandomScripture();
 
         while (true)
