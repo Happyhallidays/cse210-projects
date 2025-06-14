@@ -47,25 +47,3 @@ public class ReflectionActivity : BaseActivity
             item.Used = false;
     }
 }
-
-public class BreathingActivity : BaseActivity
-{
-    public BreathingActivity(string name, string description, int seconds)
-        : base(name, description, seconds) { }
-
-    public void RunActivity()
-    {
-        DisplayGreeting();
-        DisplayDescription();
-        ObtainDuration();
-        StartTime();
-
-        while (!HasTimerExpired())
-        {
-            RunCountDown("Breathe in...", 4);
-            RunCountDown("Now breathe out...", 4);
-        }
-
-        DisplayEnding();
-    }
-}
