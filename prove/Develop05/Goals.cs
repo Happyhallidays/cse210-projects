@@ -17,30 +17,37 @@ public class Goals
     }
 
     public void RecordEvent(int index)
-{
-    if (index >= 0 && index < _goalList.Count)
     {
-        Goal goal = _goalList[index];
-        goal.RecordEvent();
-
-        if (goal is CheckList checklist)
+        if (index >= 0 && index < _goalList.Count)
         {
-            _score += checklist.Points;
-            if (checklist.IsComplete())
+            Goal goal = _goalList[index];
+            goal.RecordEvent();
+
+            if (goal is CheckList checklist)
             {
-                _score += checklist.Bonus;
+                _score += checklist.Points;
+                if (checklist.IsComplete())
+                {
+                    _score += checklist.Bonus;
+                }
             }
-        }
-        else if (goal is Simple simple && !simple.IsComplete())
-        {
-            _score += simple.Points;
-        }
-        else if (goal is Eternal eternal)
-        {
-            _score += eternal.Points;
-        }
+            else if (goal is Simple simple && !simple.IsComplete())
+            {
+                _score += simple.Points;
+            }
+            else if (goal is Eternal eternal)
+            {
+                _score += eternal.Points;
+            }
 
-        Console.WriteLine($"You earned points! Current score: {_score}");
+            Console.WriteLine($"You earned points! Current score: {_score}");
+        }
     }
-}
+
+    public void ShowScore()
+    {
+        Console.WriteLine($"Current Score: {_score}");
+    }
+
+    
 }

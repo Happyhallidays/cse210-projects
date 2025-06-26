@@ -24,9 +24,13 @@ public class Program
                     // Logic to record an event
                     break;
                 case "4":
+                    goals.ShowScore();
+                    break;
+                case "5":
                     running = false;
                     break;
             }
+        
         }
     }
 }
