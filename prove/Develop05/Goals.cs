@@ -16,29 +16,33 @@ public class Goals
         }
     }
 
-    public void RecordEvent(int index)
-    {
+public void RecordEvent(int index)
+{
         if (index >= 0 && index < _goalList.Count)
         {
             Goal goal = _goalList[index];
+
+            bool wasComplete = goal.IsComplete();
             goal.RecordEvent();
 
-            if (goal is CheckList checklist)
+            bool nowComplete = goal.IsComplete();
+
+            if (!wasComplete && nowComplete)
             {
-                _score += checklist.Points;
-                if (checklist.IsComplete())
-                {
-                    _score += checklist.Bonus;
-                }
+                _score += goal.Points;
+                Console.WriteLine("✅ Goal completed! +100 points");
             }
-            else if (goal is Simple simple && !simple.IsComplete())
+            else
             {
-                _score += simple.Points;
+                Console.WriteLine("Goal updated, but not yet complete.");
             }
-            else if (goal is Eternal eternal)
+        if (!goal.WasRewarded() && nowComplete)
             {
-                _score += eternal.Points;
+                _score += goal.Points;
+                goal.MarkRewarded();
+                Console.WriteLine("✅ Goal completed! +100 points");
             }
+
 
             Console.WriteLine($"You earned points! Current score: {_score}");
         }
@@ -48,6 +52,4 @@ public class Goals
     {
         Console.WriteLine($"Current Score: {_score}");
     }
-
-    
 }

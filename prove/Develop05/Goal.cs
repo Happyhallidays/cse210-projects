@@ -7,4 +7,16 @@ public abstract class Goal
     public abstract void RecordEvent();
     public abstract bool IsComplete();
     public abstract string GetDetails();
+
+    protected bool _rewarded = false;
+
+public bool WasRewarded()
+{
+    return _rewarded;
+}
+
+public void MarkRewarded()
+{
+    _rewarded = true;
+}
 }

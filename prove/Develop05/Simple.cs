@@ -16,4 +16,9 @@ public class Simple : Goal
     {
         return $"{Name} ({Description}) - {(_isComplete ? "Completed" : "Not Completed")}";
     }
+
+    public Simple(string name, string description) : base(name, description, 100)
+{
+    _isComplete = false;
+}
 }
