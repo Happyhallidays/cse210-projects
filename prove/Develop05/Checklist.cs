@@ -1,54 +1,44 @@
-public class CheckList : Goal
+public class ChecklistGoal : Goal
 {
-    private int _targetCount;
-    private int _currentCount;
-    private int _bonus;
-    private bool _bonusAwarded;
+    private int currentCount;
+    private int maxGoals;
+    private int bonusPoints;
+    private bool bonusAwarded;
 
-    public CheckList(string name, string description, int targetCount, int bonus)
-        : base(name, description, 100)
+    public ChecklistGoal(string name, string description, int points, bool isComplete, int completions, int max, int bonus)
+        : base(name, description, points, isComplete)
     {
-        _targetCount = targetCount;
-        _currentCount = 0;
-        _bonus = bonus;
-        _bonusAwarded = false;
+        currentCount = completions;
+        maxGoals = max;
+        bonusPoints = bonus;
+        bonusAwarded = false;
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        if (_currentCount < _targetCount)
+        if (currentCount < maxGoals)
         {
-            _currentCount++;
-            Console.WriteLine($"Checklist progress: {_currentCount}/{_targetCount}");
+            currentCount++;
+            Console.WriteLine($"📝 Checklist goal progress: {currentCount}/{maxGoals}");
+
+            if (currentCount >= maxGoals && !bonusAwarded)
+            {
+                bonusAwarded = true;
+                IsComplete = true;
+                Console.WriteLine($"🎉 Goal completed! Bonus: {bonusPoints} points");
+                return Points + bonusPoints;
+            }
+
+            return Points;
         }
-        else
-        {
-            Console.WriteLine("Checklist goal already complete.");
-        }
+        Console.WriteLine("Goal already fully completed.");
+        return 0;
     }
 
-    public override bool IsComplete()
-    {
-        return _currentCount >= _targetCount;
-    }
+    public override string GetGoalType() => "Checklist";
 
-    public bool BonusEligible()
-    {
-        return IsComplete() && !_bonusAwarded;
-    }
+    public override string ListGoal() =>
+        $"{Name} (Checklist) — {Description} — {currentCount}/{maxGoals} completed";
 
-    public void MarkBonusAwarded()
-    {
-        _bonusAwarded = true;
-    }
-
-    public int GetBonus()
-    {
-        return _bonus;
-    }
-
-    public override string GetDetails()
-    {
-        return $"{_name} (Checklist) — {_description} — {_currentCount}/{_targetCount} completed";
-    }
+    public override string ToString() => $"{Name}|{Description}|{Points}|{currentCount}|{maxGoals}|{bonusPoints}";
 }

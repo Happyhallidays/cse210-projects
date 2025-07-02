@@ -1,23 +1,24 @@
-public class Eternal : Goal
+public class EternalGoal : Goal
 {
-    public Eternal(string name, string description)
-        : base(name, description, 100)
+    private int numberOfCompletions;
+
+    public EternalGoal(string name, string description, int points, bool isComplete = false, int completions = 0)
+        : base(name, description, points, isComplete)
     {
+        numberOfCompletions = completions;
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        Console.WriteLine("Eternal goal progress recorded.");
-        // No change in state; points granted each time externally
+        numberOfCompletions++;
+        Console.WriteLine("🔁 Eternal goal recorded!");
+        return Points;
     }
 
-    public override bool IsComplete()
-    {
-        return false; // Eternal goals are never "complete"
-    }
+    public override string GetGoalType() => "Eternal";
 
-    public override string GetDetails()
-    {
-        return $"{_name} (Eternal) — {_description}";
-    }
+    public override string ListGoal() =>
+        $"{Name} (Eternal) — {Description} — Completed {numberOfCompletions} times";
+
+    public override string ToString() => $"{Name}|{Description}|{Points}|{numberOfCompletions}";
 }

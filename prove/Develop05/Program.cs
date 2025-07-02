@@ -15,13 +15,13 @@ public class Program
             switch (input)
             {
                 case "1":
-                    // Logic to create a new goal
+                    goals.CreateGoalMenu();
                     break;
                 case "2":
                     goals.ListGoals();
                     break;
                 case "3":
-                    // Logic to record an event
+                    goals.RecordEvent();
                     break;
                 case "4":
                     goals.ShowScore();
@@ -29,8 +29,10 @@ public class Program
                 case "5":
                     running = false;
                     break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    break;
             }
-        
         }
     }
 }

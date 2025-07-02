@@ -3,20 +3,18 @@ public abstract class Goal
     public string Name { get; set; }
     public string Description { get; set; }
     public int Points { get; set; }
+    public bool IsComplete { get; set; }
 
-    public abstract void RecordEvent();
-    public abstract bool IsComplete();
-    public abstract string GetDetails();
+    public Goal(string name, string description, int points, bool isComplete = false)
+    {
+        Name = name;
+        Description = description;
+        Points = points;
+        IsComplete = isComplete;
+    }
 
-    protected bool _rewarded = false;
-
-public bool WasRewarded()
-{
-    return _rewarded;
-}
-
-public void MarkRewarded()
-{
-    _rewarded = true;
-}
+    public abstract int RecordEvent();
+    public abstract string GetGoalType();
+    public abstract string ToString();
+    public abstract string ListGoal();
 }
