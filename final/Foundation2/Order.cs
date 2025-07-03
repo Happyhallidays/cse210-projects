@@ -16,13 +16,19 @@ class Order
         products.Add(product);
     }
 
+    public double GetShippingCost()
+    {
+        return customer.LivesInUSA() ? 5.0 : 35.0;
+    }
+
     public double GetTotalPrice()
     {
         double total = 0;
         foreach (var product in products)
+        {
             total += product.GetTotalPrice();
-
-        total += customer.LivesInUSA() ? 5 : 35;
+        }
+        total += GetShippingCost();
         return total;
     }
 
@@ -30,7 +36,9 @@ class Order
     {
         var sb = new StringBuilder();
         foreach (var product in products)
+        {
             sb.AppendLine($"{product.Name} (Product ID: {product.ProductId})");
+        }
         return sb.ToString();
     }
 

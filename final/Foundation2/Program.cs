@@ -22,8 +22,9 @@ class Program
             Console.WriteLine(order.GetPackingLabel());
             Console.WriteLine("Shipping Label:");
             Console.WriteLine(order.GetShippingLabel());
+            Console.WriteLine($"Shipping Cost: ${order.GetShippingCost():F2}");
             Console.WriteLine($"Total Price: ${order.GetTotalPrice():F2}");
-            Console.WriteLine();
+            Console.WriteLine(new string('-', 40));
         }
     }
 }
